@@ -95,18 +95,9 @@ function startGame(nameP, health, power, actionPoints, gold) {
     for(let i = 0; i < 5; i++) {
         deck.addCard(cards[1])
     }
-    for(let i = 0; i < 3; i++) {
-        deck.addCard(cards[2])
-    }
     deck.addCard(cards[3])
     deck.addCard(cards[4])
     deck.addCard(cards[5])
-    deck.addCard(cards[6])
-    deck.addCard(cards[7])
-    deck.addCard(cards[8])
-    for(let i = 0; i < 3; i++) {
-        deck.addCard(cards[9])
-    }
     player = new Player(nameP, health, actionPoints, deck, gold, power);
     stage = 1;
     chooseMenu();
@@ -169,7 +160,7 @@ function setCard() {
 
     // Poing américain
     cards.push(new Card((user, victim, uBoost, vBoost) => {
-        uBoost.pwrBoost += 5;
+        uBoost.pwrBoost += 4;
     }, 6, "", "Poing américain", "Augmente moyennement la puissance"));
 
     // Ailes d'aciers
