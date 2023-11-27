@@ -22,12 +22,15 @@ function title() {
     game.innerHTML = "";
     let title = document.createElement("h1");
         title.innerHTML = "Steampunk Card Battle";
+        title.className = "centerText fontBig";
     let nameInput = document.createElement("input");
         nameInput.type = "string";
         nameInput.placeholder = "Nom";
+        nameInput.className = "titleMenu centerText";
     let startBtn = document.createElement("button");
         startBtn.type = "button";
         startBtn.innerHTML = "JOUER";
+        startBtn.className = "titleMenu centerText";
         startBtn.addEventListener("click", () => {
             if (nameInput.value != "") {
                 charSelect(nameInput.value);
@@ -53,6 +56,7 @@ function charSelect(namePlayer) {
             nameTitle.innerHTML = namePlayer;
             nameTitle.id = "nameTitle";
         title.append(nameTitle);
+        title.className = "centerText fontBig";
     let list = document.createElement("ul");
         let char1 = document.createElement("li");
             let name1 = document.createElement("h2");
@@ -73,10 +77,12 @@ function chooseMenu() {
         title.innerHTML = `
             ${player.getName()}<br/>
             Stage ${stage}`;
+        title.className = "centerText fontBig";
     let subTitle = document.createElement("h3");
         subTitle.innerHTML = `
             HP : ${player.getInfos().hp}/${player.getInfos().max}<br/>
             Pwr : ${player.getInfos().power} - Act : ${player.getInfos().action} - Or : ${player.getInfos().gold}`;
+            subTitle.className = "centerText";
     game.append(title);
     game.append(subTitle);
 }

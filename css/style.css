@@ -1,8 +1,8 @@
-h1, h2, h3 {
+.centerText {
     text-align: center;
 }
 
-h1 {
+.fontBig {
     font-size: 2rem;
 }
 
@@ -10,4 +10,9 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.titleMenu {
+    width: 11rem;
+    height: 3rem;
 }
