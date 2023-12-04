@@ -157,6 +157,10 @@ function battleScreen() {
         playerPart.className = "game justifyEnd width100";
         let hand = document.createElement("ul")
             hand.className = "listNoStyle justifyAround wrap width100";
+            hand.id = "playerHand";
+        let nextBtn = document.createElement("button");
+            nextBtn.type = "button";
+            nextBtn.id = "nextBtn";
         let pStats = document.createElement("ul");
             pStats.className = "listNoStyle justifyAround width100";
             let playerHealth = document.createElement("li");
@@ -188,6 +192,7 @@ function battleScreen() {
             pStats.append(playerPower);
             pStats.append(playerAction);
         playerPart.append(hand);
+        playerPart.append(nextBtn);
         playerPart.append(pStats);
     game.append(ennPart);
     game.append(playerPart);
@@ -203,6 +208,8 @@ function startBattle() {
     let ennemy = new Ennemy("goblin", 60, 12, ennDeck, 8, "./img/WIP/goblin.png");
     battle = new Battle(player, ennemy);
     battleScreen();
+    updateInfos();
+    startTurn();
 }
 
 function startGame(nameP, health, power, actionPoints, gold) {
@@ -219,6 +226,51 @@ function startGame(nameP, health, power, actionPoints, gold) {
     player = new Player(nameP, health, actionPoints, deck, gold, power);
     stage = 1;
     chooseMenu();
+}
+
+function startTurn() {
+    let result = battle.startTurn();
+    if (result != "win" && result != "lost" && result != "continue") {
+        let hand = document.querySelector("#playerHand");
+        for (let i = 0; i < 5; i++) {
+            let card = result[i];
+            let HTMLcard = document.createElement("li");
+                HTMLcard.className = "card";
+                HTMLcard.id = `card${i}`;
+                HTMLcard.backgroundImage = `url('${card.getImage()}')`;
+                HTMLcard.addEventListener("click", () => {
+                    let canUse = battle.getHand().useCard(i);
+                    if (canUse == false) {return;}
+                    battle.useCard(canUse);
+                    updateInfos();
+                    document.querySelector(`#card${i}`).remove();
+                });
+            hand.append(HTMLcard);
+        }
+        return;
+    }
+    endTurn();
+}
+
+function endTurn() {
+    if (result == "continue") {
+        updateInfos();
+        startTurn();
+    }
+}
+
+function updateInfos() {
+    let ennInfo = battle.getEnnStats();
+    document.querySelector("#ennHealth").innerHTML = ennInfo.health;
+    document.querySelector("#ennBpwr").innerHTML = ennInfo.bPwr == 0 ? "" : ennInfo.bPwr;
+    document.querySelector("#ennBdef").innerHTML = ennInfo.bDef == 0 ? "" : ennInfo.bDef;
+    document.querySelector("#ennBact").innerHTML = ennInfo.bAct == 0 ? "" : ennInfo.bAct;
+    let playerInfo = battle.getPlayerStats();
+    document.querySelector("#playerHealth").innerHTML = playerInfo.hp;
+    document.querySelector("#playerAct").innerHTML = playerInfo.action;
+    document.querySelector("#playerDef").innerHTML = playerInfo.bDef == 0 ? "" : `+${playerInfo.bDef}`;
+    document.querySelector("#playerBPow").innerHTML = playerInfo.bPwr == 0 ? "" : `+${playerInfo.bPwr}`;
+    document.querySelector("#playerBAct").innerHTML = playerInfo.bAct == 0 ? "" : `+${playerInfo.bAct}`;
 }
 
 function setCard() {

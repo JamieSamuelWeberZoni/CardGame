@@ -68,3 +68,8 @@ html, body, #game {
 .width100 {
     width: 100%;
 }
+
+.card {
+    width: 115px;
+    height: 161px;
+}

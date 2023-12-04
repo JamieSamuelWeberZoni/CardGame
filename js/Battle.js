@@ -34,6 +34,7 @@ class Battle {
 
     /**
      * The hand you have during the fight
+     * @type Hand
      */
     #hand;
 
@@ -60,12 +61,14 @@ class Battle {
 
     /**
      * @description Start the current turn
+     * 
+     * @returns something
      */
     startTurn() {
         if (this.#playerTurn) {
-            startPlayer();
+            return this.startPlayer();
         } else {
-            startEnnemy();
+            return this.startEnnemy();
         }
     }
 
@@ -82,6 +85,8 @@ class Battle {
 
     /**
      * @description Start the turn of the ennemy
+     * 
+     * @return If we won or not
      */
     startEnnemy() {
         this.#ennemy.maxAction(this.#eBoost.actBoost);
@@ -96,7 +101,7 @@ class Battle {
             }
             break;
         }
-        this.endTurn();
+        return this.endTurn();
     }
 
     /**
@@ -171,5 +176,14 @@ class Battle {
             bAct: this.#pBoost.actBoost,
             bDef: this.#pBoost.defBoost
         };
+    }
+
+    /**
+     * @description Get the hand of the player
+     * 
+     * @returns The hand of the player
+     */
+    getHand() {
+        return this.#hand;
     }
 }
