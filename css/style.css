@@ -16,3 +16,7 @@
     width: 11rem;
     height: 3rem;
 }
+
+.listNoStyle {
+    list-style: none;
+}

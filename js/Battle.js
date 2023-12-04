@@ -137,4 +137,20 @@ class Battle {
             return "continue";
         }
     }
+
+    /**
+     * @description Get the stats of the ennemy we can see during the fight
+     * 
+     * @returns The stats we can see of the ennemy
+     */
+    getEnnStats() {
+        return {
+            name: this.#ennemy.getInfos.name,
+            health: this.#ennemy.getInfos.health,
+            image: this.#ennemy.getInfos.image,
+            bPwr: this.#eBoost.pwrBoost,
+            bAct: this.#eBoost.actBoost,
+            bDef: this.#eBoost.defBoost
+        };
+    }
 }

@@ -11,8 +11,25 @@
  * @type Player
  */
 let player;
+
+/**
+ * @type Card[]
+ */
 let cards;
+
+/**
+ * @type number
+ */
 let stage;
+
+/**
+ * @type Battle
+ */
+let battle;
+
+/**
+ * @type HTMLElement
+ */
 let game = document.querySelector("#game");
 
 /**
@@ -82,9 +99,42 @@ function chooseMenu() {
         subTitle.innerHTML = `
             HP : ${player.getInfos().hp}/${player.getInfos().max}<br/>
             Pwr : ${player.getInfos().power} - Act : ${player.getInfos().action} - Or : ${player.getInfos().gold}`;
-            subTitle.className = "centerText";
+        subTitle.className = "centerText";
+    let playBtn = document.createElement("button");
+        playBtn.type = "button";
+        playBtn.innerHTML = "Combattre";
+        playBtn.className = "centerText titleMenu";
+        playBtn.addEventListener("click", () => {});
+    let shopBtn = document.createElement("button");
+        shopBtn.type = "button";
+        shopBtn.innerHTML = "Acheter";
+        shopBtn.className = "centerText titleMenu";
+        shopBtn.addEventListener("click", () => {});
     game.append(title);
     game.append(subTitle);
+    game.append(playBtn);
+    game.append(shopBtn);
+}
+
+function battleScreen() {
+    game.innerHTML = "";
+    let ennStat = document.createElement("h2");
+        ennStat.className = "centerText";
+        ennStat.innerHTML = `${battle.getEnnStats.name} - `;
+        let ennHealth = document.createElement("span");
+            ennHealth.id = "ennHealth";
+        ennStat.append(ennHealth);
+    let ennBonus = document.createElement("ul");
+}
+
+function startBattle() {
+    let ennDeck = new Deck();
+    ennDeck.addCard(cards[0]);
+    ennDeck.addCard(cards[0]);
+    ennDeck.addCard(cards[2]);
+    ennDeck.addCard(cards[7]);
+    let ennemy = new Ennemy("goblin", 30, 12, ennDeck, 8, "./img/WIP/goblin.png");
+    battle = new Battle(player, ennemy);
 }
 
 function startGame(nameP, health, power, actionPoints, gold) {
@@ -106,7 +156,7 @@ function startGame(nameP, health, power, actionPoints, gold) {
 function setCard() {
     cards = [];
 
-    // Coup de couteau
+    // Coup de couteau [0]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         let damage = user.getInfos.power + uBoost.pwrBoost;
         while(vBoost.defBoost > 0 && damage > 0) {
@@ -116,12 +166,12 @@ function setCard() {
         victim.takeDmg(damage - vBoost.defBoost);
     }, 3, "", "Coup de couteau", "Enleve des points de vies selons la puissance de l'utilisateur, son boost de puissance et la defense de la victime"));
     
-    // Bandage
+    // Bandage [1]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         user.heal(Math.floor(Math.random * 15) + 5);
     }, 2, "", "Bandage", "Soigne entre 5 et 20 pv"));
 
-    // Lancé de couteaux
+    // Lancé de couteaux [2]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         let power = user.getInfos.power + uBoost.pwrBoost;
         damage = power * Math.floor(Math.random() * 3);
@@ -132,43 +182,43 @@ function setCard() {
         victim.takeDmg(damage - vBoost.defBoost);
     }, 5, "", "Lancé de couteaux", "Fait entre zéro et deux fois les dégats de Coup de couteau"));
 
-    // Plastron royal
+    // Plastron royal [3]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.defBoost += 18;
         uBoost.pwrBoost -= 3;
         uBoost.actBoost -= 3;
     }, 4, "", "Plastron royal", "Augmente beaucoup la défense mais baisse les actions par tour et la puissance"));
 
-    // Marteau en plombs
+    // Marteau en plombs [4]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.defBoost -= 8;
         uBoost.pwrBoost += 7;
         uBoost.actBoost -= 3;
     }, 4, "", "Marteau en plombs", "Augmente beaucoup la puissance mais baisse les actions et la défense"));
 
-    // Ailes biologiques
+    // Ailes biologiques [5]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.defBoost -= 8;
         uBoost.pwrBoost -= 3;
         uBoost.actBoost += 6;
     }, 4, "", "Ailes biologiques", "Augmente beaucoup les actions mais baisse la défense et la puissance"));
 
-    // Couvercle en cuir
+    // Couvercle en cuir [6]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.defBoost += 12;
     }, 6, "", "Couvercle en cuir", "Augmente moyennement la défense"));
 
-    // Poing américain
+    // Poing américain [7]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.pwrBoost += 4;
     }, 6, "", "Poing américain", "Augmente moyennement la puissance"));
 
-    // Ailes d'aciers
+    // Ailes d'aciers [8]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.actBoost += 4;
     }, 6, "", "Ailes d'aciers", "Augmente moyennement les actions"));
 
-    // Gaz calmant
+    // Gaz calmant [9]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
         uBoost.defBoost = 0;
         vBoost.defBoost = 0;
