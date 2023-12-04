@@ -6,7 +6,7 @@
     font-size: 2rem;
 }
 
-#game {
+.game {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,4 +19,19 @@
 
 .listNoStyle {
     list-style: none;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.justifyAround {
+    display: flex;
+    justify-content: space-around;
+}
+
+.justifyBetween {
+    display: flex;
+    justify-content: space-between;
 }

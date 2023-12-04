@@ -37,6 +37,7 @@ let game = document.querySelector("#game");
  */
 function title() {
     game.innerHTML = "";
+    game.className = "game";
     let title = document.createElement("h1");
         title.innerHTML = "Steampunk Card Battle";
         title.className = "centerText fontBig";
@@ -67,6 +68,7 @@ function title() {
  */
 function charSelect(namePlayer) {
     game.innerHTML = "";
+    game.className = "game";
     let title = document.createElement("h1");
         title.innerHTML = "Choisissez un personnage ";
         let nameTitle = document.createElement("span");
@@ -90,6 +92,7 @@ function charSelect(namePlayer) {
 
 function chooseMenu() {
     game.innerHTML = "";
+    game.className = "game";
     let title = document.createElement("h1");
         title.innerHTML = `
             ${player.getName()}<br/>
@@ -118,13 +121,40 @@ function chooseMenu() {
 
 function battleScreen() {
     game.innerHTML = "";
-    let ennStat = document.createElement("h2");
-        ennStat.className = "centerText";
-        ennStat.innerHTML = `${battle.getEnnStats.name} - `;
-        let ennHealth = document.createElement("span");
-            ennHealth.id = "ennHealth";
-        ennStat.append(ennHealth);
-    let ennBonus = document.createElement("ul");
+    game.className = "game justifyBetween"
+    let ennPart = document.createElement("div");
+        ennPart.className = "game";
+        let ennStat = document.createElement("h2");
+            ennStat.className = "centerText";
+            ennStat.innerHTML = `${battle.getEnnStats.name} - `;
+            let ennHealth = document.createElement("span");
+                ennHealth.id = "ennHealth";
+            ennStat.append(ennHealth);
+        let ennBonus = document.createElement("ul");
+            ennBonus.className = "listNoStyle justifyAround";
+            let pwrB = document.createElement("li");
+                pwrB.className = "centerText";
+                pwrB.style.backgroundImage = "url('./img/PowerIcon.png')";
+                pwrB.id = "ennBpwr";
+            let defB = document.createElement("li");
+                defB.className = "centerText";
+                defB.style.backgroundImage = "url('./img/DefenseIcon.png')";
+                defB.id = "ennBdef";
+            let actB = document.createElement("li");
+                actB.className = "centerText";
+                actB.style.backgroundImage = "url('./img/ActionIcon.png')";
+                actB.id = "ennBact";
+            ennBonus.append(pwrB);
+            ennBonus.append(defB);
+            ennBonus.append(actB);
+        let ennImg = document.createElement("img");
+            ennImg.src = "./img/WIP/goblin.png";
+            ennImg.alt = "goblin";
+        ennPart.append(ennStat);
+        ennPart.append(ennBonus);
+        ennPart.append(ennImg);
+    let playerPart = document.createElement("div");
+    
 }
 
 function startBattle() {
