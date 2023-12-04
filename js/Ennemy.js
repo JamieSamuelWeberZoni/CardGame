@@ -128,6 +128,6 @@ class Ennemy {
      * @returns Some infos of the ennemy
      */
     getInfos() {
-        return {name: this.#name, health: this.#health, image: this.#image};
+        return {eName: this.#name, health: this.#health, image: this.#image};
     }
 }

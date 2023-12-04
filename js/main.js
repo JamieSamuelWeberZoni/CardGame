@@ -107,7 +107,7 @@ function chooseMenu() {
         playBtn.type = "button";
         playBtn.innerHTML = "Combattre";
         playBtn.className = "centerText titleMenu";
-        playBtn.addEventListener("click", () => {});
+        playBtn.addEventListener("click", startBattle);
     let shopBtn = document.createElement("button");
         shopBtn.type = "button";
         shopBtn.innerHTML = "Acheter";
@@ -121,17 +121,17 @@ function chooseMenu() {
 
 function battleScreen() {
     game.innerHTML = "";
-    game.className = "game justifyBetween"
+    game.className = "game justifyBetween width100"
     let ennPart = document.createElement("div");
         ennPart.className = "game";
         let ennStat = document.createElement("h2");
             ennStat.className = "centerText";
-            ennStat.innerHTML = `${battle.getEnnStats.name} - `;
+            ennStat.innerHTML = `${battle.getEnnStats().eName} - `;
             let ennHealth = document.createElement("span");
                 ennHealth.id = "ennHealth";
             ennStat.append(ennHealth);
         let ennBonus = document.createElement("ul");
-            ennBonus.className = "listNoStyle justifyAround";
+            ennBonus.className = "listNoStyle justifyAround width100";
             let pwrB = document.createElement("li");
                 pwrB.className = "centerText";
                 pwrB.style.backgroundImage = "url('./img/PowerIcon.png')";
@@ -148,12 +148,49 @@ function battleScreen() {
             ennBonus.append(defB);
             ennBonus.append(actB);
         let ennImg = document.createElement("img");
-            ennImg.src = "./img/WIP/goblin.png";
+            ennImg.src = battle.getEnnStats().image;
             ennImg.alt = "goblin";
         ennPart.append(ennStat);
         ennPart.append(ennBonus);
         ennPart.append(ennImg);
     let playerPart = document.createElement("div");
+        playerPart.className = "game justifyEnd width100";
+        let hand = document.createElement("ul")
+            hand.className = "listNoStyle justifyAround wrap width100";
+        let pStats = document.createElement("ul");
+            pStats.className = "listNoStyle justifyAround width100";
+            let playerHealth = document.createElement("li");
+                let pHP = document.createElement("span");
+                    pHP.id = "playerHealth";
+                let pBhp = document.createElement("span");
+                    pBhp.id = "playerDef";
+                    pBhp.className = "colorGreen";
+                playerHealth.innerHTML = "santé: ";
+                playerHealth.append(pHP);
+                playerHealth.innerHTML += `/${battle.getPlayerStats().max} `;
+                playerHealth.append(pBhp);
+            let playerPower = document.createElement("li");
+                let pBpwr = document.createElement("span");
+                    pBpwr.id = "playerBPow";
+                    pBpwr.className = "colorRed";
+                playerPower.innerHTML = `puissance: ${battle.getPlayerStats().power}`;
+                playerPower.append(pBpwr);
+            let playerAction = document.createElement("li");
+                let pAct = document.createElement("span");
+                    pAct.id = "playerAct";
+                let pBAct = document.createElement("span");
+                    pBAct.id = "playerBAct";
+                    pBAct.className = "colorBlue";
+                playerAction.innerHTML = "Action: ";
+                playerAction.append(pAct);
+                playerAction.append(pBAct);
+            pStats.append(playerHealth);
+            pStats.append(playerPower);
+            pStats.append(playerAction);
+        playerPart.append(hand);
+        playerPart.append(pStats);
+    game.append(ennPart);
+    game.append(playerPart);
     
 }
 
@@ -163,8 +200,9 @@ function startBattle() {
     ennDeck.addCard(cards[0]);
     ennDeck.addCard(cards[2]);
     ennDeck.addCard(cards[7]);
-    let ennemy = new Ennemy("goblin", 30, 12, ennDeck, 8, "./img/WIP/goblin.png");
+    let ennemy = new Ennemy("goblin", 60, 12, ennDeck, 8, "./img/WIP/goblin.png");
     battle = new Battle(player, ennemy);
+    battleScreen();
 }
 
 function startGame(nameP, health, power, actionPoints, gold) {

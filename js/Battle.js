@@ -145,12 +145,31 @@ class Battle {
      */
     getEnnStats() {
         return {
-            name: this.#ennemy.getInfos.name,
-            health: this.#ennemy.getInfos.health,
-            image: this.#ennemy.getInfos.image,
+            eName: this.#ennemy.getInfos().eName,
+            health: this.#ennemy.getInfos().health,
+            image: this.#ennemy.getInfos().image,
             bPwr: this.#eBoost.pwrBoost,
             bAct: this.#eBoost.actBoost,
             bDef: this.#eBoost.defBoost
+        };
+    }
+
+    /**
+     * @description Get the stats of the player we can see during the fight
+     * 
+     * @returns The stats we can see of the player
+     */
+    getPlayerStats() {
+        return {
+            pName: this.#player.getName(),
+            hp: this.#player.getInfos().hp, 
+            max: this.#player.getInfos().max, 
+            action: this.#player.getInfos().action,
+            power: this.#player.getInfos().power,
+            gold: this.#player.getInfos().gold,
+            bPwr: this.#pBoost.pwrBoost,
+            bAct: this.#pBoost.actBoost,
+            bDef: this.#pBoost.defBoost
         };
     }
 }
