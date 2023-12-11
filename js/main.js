@@ -162,6 +162,7 @@ function battleScreen() {
             nextBtn.type = "button";
             nextBtn.innerHTML = "Passer";
             nextBtn.id = "nextBtn";
+            nextBtn.addEventListener("click", () => {endTurn();});
         let pStats = document.createElement("ul");
             pStats.className = "listNoStyle justifyAround width100";
             let playerHealth = document.createElement("li");
@@ -197,7 +198,6 @@ function battleScreen() {
         playerPart.append(pStats);
     game.append(ennPart);
     game.append(playerPart);
-    
 }
 
 function startBattle() {
@@ -206,7 +206,7 @@ function startBattle() {
     ennDeck.addCard(cards[0]);
     ennDeck.addCard(cards[2]);
     ennDeck.addCard(cards[7]);
-    let ennemy = new Ennemy("goblin", 60, 12, ennDeck, 8, "./img/WIP/goblin.png");
+    let ennemy = new Ennemy("goblin", 60, 12, ennDeck, 6, "./img/WIP/goblin.png");
     battle = new Battle(player, ennemy);
     battleScreen();
     updateInfos();
@@ -245,16 +245,19 @@ function startTurn() {
                     battle.useCard(canUse);
                     updateInfos();
                     document.querySelector(`#card${i}`).remove();
-                    
                 });
             hand.append(HTMLcard);
         }
+        document.querySelector("#nextBtn").disabled = false;
         return;
     }
-    endTurn();
+    endTurn(result);
 }
 
-function endTurn() {
+function endTurn(result = null) {
+    document.querySelector("#playerHand").innerHTML = "";
+    document.querySelector("#nextBtn").disabled = true;
+    result = result ?? battle.endTurn();
     if (result == "continue") {
         updateInfos();
         startTurn();
@@ -280,12 +283,15 @@ function setCard() {
 
     // Coup de couteau [0]
     cards.push(new Card((user, victim, uBoost, vBoost) => {
-        let damage = user.getInfos().power + uBoost.pwrBoost;
+        let damage = user.getPower() + uBoost.pwrBoost;
         while(vBoost.defBoost > 0 && damage > 0) {
             vBoost.defBoost--;
             damage--;
         }
         victim.takeDmg(damage - vBoost.defBoost);
+        if (vBoost.defBoost < 0) {
+            vBoost.defBoost = 0;
+        }
     }, 3, "./img/WIP/CouteauCard.png", "Coup de couteau", "Enleve des points de vies selons la puissance de l'utilisateur, son boost de puissance et la defense de la victime"));
     
     // Bandage [1]

@@ -105,7 +105,7 @@ class Ennemy {
     useCard() {
         let cards = this.#deck.getCards().filter((item) => {
             let cost = item.getCost();
-            return this.#actionPoints <= cost;
+            return this.#actionPoints >= cost;
         });
         if (cards.length === 0) {
             return false;

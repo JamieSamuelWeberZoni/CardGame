@@ -41,7 +41,7 @@ class Hand {
         this.#pile = player.getDeck().getCards();
         this.#discard = [];
         this.#hand = [];
-        this.#actionPoints = 0;
+        this.#actionPoints = player.getInfos().action;
     }
 
     /**
@@ -89,7 +89,7 @@ class Hand {
      * If the pile is empty, put all the cards of the discard pile are put inside the pile
      */
     endTurn() {
-        while(this.#hand !== 0) {
+        while(this.#hand.length !== 0) {
             this.#discard.push(this.#hand.pop());
         }
         if (this.#pile.length == 0) {

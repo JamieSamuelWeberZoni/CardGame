@@ -177,4 +177,8 @@ class Player {
         return this.#name;
     }
 
+    getPower() {
+        return this.#power;
+    }
+
 }
