@@ -75,6 +75,10 @@ class Ennemy {
     takeDmg(dmg) {
         if (dmg > 0) {
             this.#health -= dmg;
+            if (this.#health < 0)
+            {
+                this.#health = 0;
+            }
         }
     }
 

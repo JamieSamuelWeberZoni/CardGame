@@ -40,6 +40,6 @@ class Deck {
      */
     getCards()
     {
-        return this.#cards;
+        return this.#cards.slice();
     }
 }

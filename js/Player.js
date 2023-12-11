@@ -75,6 +75,10 @@ class Player {
     takeDmg(dmg) {
         if (dmg > 0) {
             this.#health -= dmg;
+            if (this.#health < 0)
+            {
+                this.#health = 0;
+            }
         }
     }
 
@@ -97,6 +101,7 @@ class Player {
      */
     boostHealth(boost) {
         this.#maxHealth += boost;
+        this.heal(boost);
     }
 
     /**

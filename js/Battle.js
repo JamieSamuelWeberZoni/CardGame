@@ -134,9 +134,9 @@ class Battle {
             this.#eBoost.pwrBoost = 0;
         }
         this.#playerTurn = !this.#playerTurn;
-        if (this.#player.getInfos.hp <= 0) {
+        if (this.#player.getInfos().hp <= 0) {
             return "lost";
-        } else if (this.#ennemy.getHealth <= 0) {
+        } else if (this.#ennemy.getInfos().health <= 0) {
             return "win";
         } else {
             return "continue";
