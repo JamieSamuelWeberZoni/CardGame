@@ -91,7 +91,7 @@ function chooseMenu() {
         shopBtn.type = "button";
         shopBtn.innerHTML = "Acheter";
         shopBtn.className = "centerText titleMenu";
-        shopBtn.addEventListener("click", () => {});
+        shopBtn.addEventListener("click", chooseMenu);
     game.append(title);
     game.append(subTitle);
     game.append(playBtn);
@@ -200,4 +200,20 @@ function gameOverScreen() {
     game.append(titleH);
     game.append(subtitle);
     game.append(playBtn);
+}
+
+function showShop() {
+    game.innerHTML = "";
+    game.className = "game";
+    let listItem = document.createElement("div");
+        listItem.id = "listItem";
+        listItem.className = "wrap";
+    let returnBtn = document.createElement("button");
+        returnBtn.className = "titleMenu centerText";
+        returnBtn.type = "button";
+        returnBtn.innerHTML = "RETOUR";
+        returnBtn.addEventListener("click", chooseMenu);
+    game.append(listItem);
+    game.append(returnBtn);
+    showShopItem();
 }

@@ -28,6 +28,11 @@ let stage;
 let battle;
 
 /**
+ * @type Shop
+ */
+let shop;
+
+/**
  * @type HTMLElement
  */
 let game = document.querySelector("#game");
@@ -38,7 +43,7 @@ function startBattle() {
     ennDeck.addCard(cards[0]);
     ennDeck.addCard(cards[2]);
     ennDeck.addCard(cards[7]);
-    let ennemy = new Ennemy("goblin", 60, 12, ennDeck, 8, "./img/WIP/goblin.png");
+    let ennemy = new Ennemy("goblin", 60 + ((stage - 1) * 5), 12 + ((stage - 1) * 1), ennDeck, 8 + ((stage - 1) * 2), "./img/WIP/goblin.png");
     battle = new Battle(player, ennemy);
     battleScreen();
     updateInfos();
@@ -58,6 +63,7 @@ function startGame(nameP, health, power, actionPoints, gold) {
     deck.addCard(cards[5])
     player = new Player(nameP, health, actionPoints, deck, gold, power);
     stage = 1;
+    shop = new Shop();
     chooseMenu();
 }
 
@@ -87,6 +93,20 @@ function startTurn() {
     endTurn(result);
 }
 
+function showShopItem() {
+    let listItemH = document.querySelector("#listItem");
+    let listItem = shop.getItems();
+    for (i = 0; i < listItem.length; i++) {
+        let button = document.createElement("button");
+            button.type = "button";
+            let item = listItem[i].getInfos();
+            button.innerHTML = `${item.name} - ${item.price} GOLD`;
+            button.className = "titleMenu centerText";
+            button.addEventListener("click", () => {shop.useItem(i); showShopItem();});
+        listItemH.append(button);
+    }
+}
+
 function endTurn(result = null) {
     document.querySelector("#playerHand").innerHTML = "";
     document.querySelector("#nextBtn").disabled = true;
@@ -98,6 +118,7 @@ function endTurn(result = null) {
         player.boostHealth(3);
         player.gainGold(15);
         stage++;
+        shop = new Shop();
         chooseMenu();
     } else if (result == "lost") {
         gameOverScreen();
