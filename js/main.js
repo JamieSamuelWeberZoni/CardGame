@@ -96,7 +96,7 @@ function startTurn() {
 function showShopItem() {
     let listItemH = document.querySelector("#listItem");
     let listItem = shop.getItems();
-    for (i = 0; i < listItem.length; i++) {
+    for (let i = 0; i < listItem.length; i++) {
         let button = document.createElement("button");
             button.type = "button";
             let item = listItem[i].getInfos();

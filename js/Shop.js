@@ -28,7 +28,7 @@ class Shop {
             new ShopItem("carte ailes d'aciers", () => {player.getDeck().addCard(cards[8]);}, 26),
             new ShopItem("carte gaz calmant", () => {player.getDeck().addCard(cards[9]);}, 18),
         ];
-        for (i = 0; i < 5; i++)
+        for (let i = 0; i < 5; i++)
         {
             this.#items.push(items[Math.floor(Math.random() * items.length)]);
         }
