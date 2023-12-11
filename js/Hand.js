@@ -41,6 +41,7 @@ class Hand {
         this.#pile = player.getDeck().getCards();
         this.#discard = [];
         this.#hand = [];
+        this.#actionPoints = 0;
     }
 
     /**
@@ -78,7 +79,7 @@ class Hand {
             return;
         }
         this.#actionPoints -= cardAction.cost;
-        this.#discard.push(this.#hand.splice(number, 1)[0]);
+        this.#discard.push(this.#hand[number]);
         return cardAction.func;
     }
 
@@ -98,5 +99,9 @@ class Hand {
 
     getHand() {
         return this.#hand;
+    }
+
+    getAction() {
+        return this.#actionPoints;
     }
 }

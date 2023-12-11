@@ -78,7 +78,7 @@ class Battle {
      * @returns The hand of the player
      */
     startPlayer() {
-        let hand = this.#hand.startTurn(this.#player.actionPoints + this.#pBoost.actBoost);
+        let hand = this.#hand.startTurn(this.#player.getInfos().action + this.#pBoost.actBoost);
         this.#pBoost.actBoost = 0;
         return hand;
     }
@@ -169,7 +169,7 @@ class Battle {
             pName: this.#player.getName(),
             hp: this.#player.getInfos().hp, 
             max: this.#player.getInfos().max, 
-            action: this.#player.getInfos().action,
+            action: this.#hand.getAction(),
             power: this.#player.getInfos().power,
             gold: this.#player.getInfos().gold,
             bPwr: this.#pBoost.pwrBoost,
