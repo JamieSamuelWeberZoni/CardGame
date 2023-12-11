@@ -91,7 +91,7 @@ function chooseMenu() {
         shopBtn.type = "button";
         shopBtn.innerHTML = "Acheter";
         shopBtn.className = "centerText titleMenu";
-        shopBtn.addEventListener("click", chooseMenu);
+        shopBtn.addEventListener("click", showShop);
     game.append(title);
     game.append(subTitle);
     game.append(playBtn);
