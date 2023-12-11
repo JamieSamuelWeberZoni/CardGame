@@ -95,6 +95,7 @@ function startTurn() {
 
 function showShopItem() {
     let listItemH = document.querySelector("#listItem");
+    listItemH.innerHTML = "";
     let listItem = shop.getItems();
     for (let i = 0; i < listItem.length; i++) {
         let button = document.createElement("button");
