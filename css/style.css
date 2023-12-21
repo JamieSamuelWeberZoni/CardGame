@@ -72,4 +72,17 @@ html, body, #game {
 .card {
     width: 115px;
     height: 161px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (max-height: 860px) {
+    img{
+        width: 185px;
+    }
+
+    .card {
+        width: 80.5px;
+        height: 112.7px;
+    }
 }

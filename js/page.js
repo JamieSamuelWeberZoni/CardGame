@@ -15,7 +15,7 @@ function title() {
     game.innerHTML = "";
     game.className = "game";
     let title = document.createElement("h1");
-        title.innerHTML = "Steampunk Card Battle";
+        title.innerHTML = "SpireStrike";
         title.className = "centerText fontBig";
     let nameInput = document.createElement("input");
         nameInput.type = "string";
